@@ -10,6 +10,7 @@ ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight)
     m_state = State::CALCULATING; // Initial state
     m_vArray.setPrimitiveType(sf::Points); // Set the primitive type to points
     m_vArray.resize(pixelWidth * pixelHeight); // Resize vertex array to fit the window
+    updateRender(); // Perform initial render
 }
 
 // Draw function: Draws the Mandelbrot set onto the target
@@ -105,7 +106,7 @@ int ComplexPlane::countIterations(sf::Vector2f coord)
     complex<double> c(coord.x, coord.y);
     int iterations = 0;
 
-    // Iteration loop to check if the point escapes the set boundary
+    // Iteration loop to check if the point escapes the set boundary; from https://en.wikipedia.org/wiki/Mandelbrot_set
     while (abs(z) < 2.0 && iterations < MAX_ITER) 
     {
         z = z*z + c;
