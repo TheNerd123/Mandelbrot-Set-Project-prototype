@@ -37,7 +37,7 @@ private:
     VertexArray m_vArray;
     Vector2f m_mouseLocation;
     Vector2f m_plane_center;
-    Vector2f m_place_size;
+    Vector2f m_plane_size;
     Vector2i m_pixel_size;
     int m_zoomCount;
     float m_aspectRatio;

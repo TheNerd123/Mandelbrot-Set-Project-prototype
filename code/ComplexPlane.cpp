@@ -1,7 +1,19 @@
 #include "ComplexPlane.h"
 
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight) {
+    m_pixel_size.x = pixelWidth;
+    m_pixel_size.y = pixelHeight;
+    
+    float temp1 = pixelWidth;
+    float temp2 = pixelHeight;
+    m_aspectRatio = temp2/temp1;
 
+    m_plane_center = {0, 0};
+    m_plane_size = {BASE_WIDTH, BASE_HEIGHT * m_aspectRatio};
+    m_zoomCount = 0;
+    m_state = CALCULATING;
+    m_vArray.setPrimitiveType(Points);
+    m_vArray.resize(pixelWidth * pixelHeight);
 }
 
 void ComplexPlane::draw(RenderTarget& target, RenderStates states) const {

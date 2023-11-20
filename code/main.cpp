@@ -8,5 +8,6 @@
 //start of our program
 int main()
 {
+    ComplexPlane(1, 2);
     return 0;
 }
