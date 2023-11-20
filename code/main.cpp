@@ -8,6 +8,12 @@
 //start of our program
 int main()
 {
-    ComplexPlane(1, 2);
+    //Getting the desktop resolution
+    VideoMode vm(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height);
+    RenderWindow window(vm, "Mandelbrot Set", Style::Default);
+
+    Font font;
+    Text text;
+
     return 0;
 }
