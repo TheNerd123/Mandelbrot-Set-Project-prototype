@@ -1,44 +1,62 @@
-//Created by Richard Chao and Dominic Agoncillo
-//Created for the CISP 400 Mandelbrot Set Project
-//----------------------------------------------//
-
-//include our header file that has all of our important libraries
 #include "ComplexPlane.h"
 
-//start of our program
 int main()
 {
-    //Getting the desktop resolution
-    VideoMode vm(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height);
-    RenderWindow window(vm, "Mandelbrot Set", Style::Default);
+    sf::RenderWindow window(sf::VideoMode(W, H), "Mandelbrot");
+    sf::CircleShape shape(100.f);
+    ComplexPlane complexPlane(W, H);
+    sf::Font font;
+    if (!font.loadFromFile("./fonts/champagne_limousines/Champagne Limousines.ttf"))
+    {
+        cout << "ERROR";
+        return -1;
+    }
+    sf::Text text;
+    text.setFont(font);
 
-    ComplexPlane fractal(1, 1);
-    Font font;
-    Text text;
+    sf::Image image;
+    image.create(W, H);
+    sf::Texture texture;
 
-    while (window.isOpen()) {
-        Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == Event::Closed) { // Quits the game when the window is closed
-				window.close();
-            }
-            if (event.type == Event::MouseButtonPressed) {
-                if (event.mouseButton.button == Mouse::Right) {
-                    fractal.zoomOut();
-                    fractal.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
-                }
-                else if (event.mouseButton.button == Mouse::Left) {
-                    fractal.zoomIn();
-                    fractal.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
-                }
-            }
-            if(event.type == sf::Event::MouseMoved) {
-                fractal.setMouseLocation(Vector2i(event.mouseButton.x, event.mouseButton.y));
-            }
-            if (Keyboard::isKeyPressed(Keyboard::Escape)) { //press escape key to exit program
+      while (window.isOpen())
+    {
+        // Event handling
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Right) {
+                    complexPlane.zoomOut();
+                    complexPlane.setCenter(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+                }
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    complexPlane.zoomIn();
+                    complexPlane.setCenter(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+                }
+            }
+
+            if (event.type == sf::Event::MouseMoved) {
+                complexPlane.setMouseLocation(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
             }
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            window.close();
+
+        // Update Scene
+        complexPlane.updateRender();
+
+        // Load Text
+        complexPlane.loadText(text);
+
+        // Draw Scene
+        window.clear();
+        window.draw(complexPlane);
+        window.draw(text);
+        window.display();
     }
 
     return 0;
