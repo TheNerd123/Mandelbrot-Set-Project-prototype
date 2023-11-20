@@ -22,10 +22,12 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states) const {
 
 void ComplexPlane::updateRender() {
     if(m_state == CALCULATING) {
-        for(float j = 0; j < VideoMode::getDesktopMode().width; j++) {
-            for(float i = 0; i < VideoMode::getDesktopMode().height; i++) {
+        for(int j = 0.0; j < VideoMode::getDesktopMode().width; j++) {
+            for(int i = 0.0; i < VideoMode::getDesktopMode().height; i++) {
                 m_vArray[j + i * m_pixel_size.x].position = {j, i};
-
+                int count = countIterations(mapPixelToCoords(Vector2i(j, i)));
+                Uint8 r, g, b;
+                //iterationsToRGB(count, r, g, b);
             }
         }
     }
@@ -34,10 +36,17 @@ void ComplexPlane::updateRender() {
 void ComplexPlane::zoomIn() {
     m_zoomCount++;
     float x = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
+    float y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_zoomCount));
+    m_plane_size = {x, y};
+    m_state = CALCULATING;
 }
 
 void ComplexPlane::zoomOut() {
-
+    m_zoomCount--;
+    float x = BASE_WIDTH * (pow(BASE_ZOOM, m_zoomCount));
+    float y = BASE_HEIGHT * m_aspectRatio * (pow(BASE_ZOOM, m_zoomCount));
+    m_plane_size = {x, y};
+    m_state = CALCULATING;
 }
 
 void ComplexPlane::setCenter(Vector2i mousePixel) {
@@ -54,7 +63,7 @@ void ComplexPlane::loadText(Text& text) {
 }
 
 int ComplexPlane::countIterations(Vector2f coord) {
-    
+    return (coord.y * coord.x) + coord.x;
 }
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b) {

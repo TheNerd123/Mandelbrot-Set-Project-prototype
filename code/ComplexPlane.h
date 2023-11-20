@@ -8,11 +8,13 @@
 #include <sstream>
 #include <vector>
 #include <complex>
+#include <cmath>
 
 // Make code easier to type with "using namespace"
 using namespace sf;
 using namespace std;
 
+//Constants
 const unsigned int MAX_ITER = 64;
 const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
@@ -47,6 +49,5 @@ private:
     void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b);
     Vector2f mapPixelToCoords(Vector2i mousePixel);
 };
-
 
 #endif
