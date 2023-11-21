@@ -12,7 +12,7 @@ int main()
     sf::Font font;
     if (!font.loadFromFile("./fonts/champagne_limousines/Champagne Limousines.ttf"))
     {
-        cout << "ERROR";
+        cout << "ERROR: Font unable to load\n";
         return -1;
     }
 
@@ -29,29 +29,37 @@ int main()
         {
             // Close the window if the close event is triggered
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+            }
 
             // Handle mouse button presses for zooming in and out
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Right) {
+            if (event.type == sf::Event::MouseButtonPressed) 
+            {
+                if (event.mouseButton.button == sf::Mouse::Right) 
+                {
                     complexPlane.zoomOut();
                     complexPlane.setCenter(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
                 }
-                if (event.mouseButton.button == sf::Mouse::Left) {
+                if (event.mouseButton.button == sf::Mouse::Left) 
+                {
                     complexPlane.zoomIn();
                     complexPlane.setCenter(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
                 }
             }
 
             // Update the mouse location in the complex plane on mouse move
-            if (event.type == sf::Event::MouseMoved) {
+            if (event.type == sf::Event::MouseMoved) 
+            {
                 complexPlane.setMouseLocation(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
             }
         }
 
         // Close the window if the Escape key is pressed
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
             window.close();
+        }
 
         // Update the Mandelbrot rendering
         complexPlane.updateRender();
