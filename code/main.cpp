@@ -1,3 +1,6 @@
+//Created by Richard Chao and Dominic Agoncillo
+//Created for the CISP 400 Mandelbrot Set Project
+//----------------------------------------------//
 #include "ComplexPlane.h"
 
 int main()
