@@ -8,12 +8,12 @@
 using namespace std;
 
 // Constants for Mandelbrot set calculations and rendering
-const unsigned int MAX_ITER = 128;
+const unsigned int MAX_ITER = 64;
 const float BASE_WIDTH = 4.0;
 const float BASE_HEIGHT = 4.0;
 const float BASE_ZOOM = 0.5;
-const int W = sf::VideoMode::getDesktopMode().width / 2;
-const int H = sf::VideoMode::getDesktopMode().height / 2;
+const int W = sf::VideoMode::getDesktopMode().width;
+const int H = sf::VideoMode::getDesktopMode().height;
 
 // State enumeration to manage rendering states
 namespace State
